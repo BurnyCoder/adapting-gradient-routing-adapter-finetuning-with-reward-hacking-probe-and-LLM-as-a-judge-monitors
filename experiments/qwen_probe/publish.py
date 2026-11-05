@@ -82,6 +82,12 @@ def publish(root):
                          f"bringing distinct record coverage to {coverage['combined_unique']}/160. Setup failures remain unknown; record coverage does not imply successful execution. Original outcomes were already known; "
                          "the pilot's primary conclusion is unchanged. See [follow-up evidence](report/followup/summary.md). "
                          "Checkpoint tensors are unchanged; no retraining or repeated original attempt was performed.")
+    correction_path = ROOT / "reports/qwen_probe/correction-2026-10-22/paper.md"  # Local: cards carry the dated post-hoc conversion correction (checks.json).
+    if correction_path.exists():
+        study_status += ("\n\n**Scientific correction, 22 October 2026:** the historical SFT converter inserted an invalid empty command and lost the "
+                         "completion flag in all 192 training trajectories. The judge-routed arm's training losses rose sharply, and every saved response from the "
+                         "judge-routed and original-monitor arms failed the response parser. This compromises behavioral interpretation; mitigation effectiveness "
+                         "remains inconclusive. No checkpoint was retrained. See [the correction](report/correction-2026-10-22/paper.md).")
     published = []
     for arm in ARMS:
         folder = root / "checkpoints" / arm
